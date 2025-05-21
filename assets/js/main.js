@@ -1,5 +1,5 @@
 // 设置Cloudflare Worker API的基础URL
-const API_BASE_URL = '更换为自己的Cloudflare Worker API的基础URL'; //必填项
+const API_BASE_URL = 'https://hou.521778.xyz'; //必填项
 
 // 获取必应每日壁纸
 function getBingWallpaper() {
