@@ -109,56 +109,44 @@ body::before {
     /* 移除以下两行即可去掉椭圆边框和线条 */
     /* border: 1px solid rgba(255, 255, 255, 0.3); */
     /* border-radius: 20px; */
-    transition: color 0.3s ease;
     font-size: clamp(0.9rem, 2vw, 1rem);
-    position: relative; /* 为伪元素定位 */
+    position: relative; /* 为定位提供上下文 */
+    border: 2px solid transparent; /* 初始透明边框 */
+    border-radius: 20px; /* 椭圆形边框，上下直线，左右圆弧 */
+    transition: border-width 0.3s ease, border-color 0.3s ease; /* 边框动画 */
 }
 
-/* 下划线伪元素 */
-.navigation .nav-item::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0; /* 初始宽度为 0 */
-    height: 2px; /* 下划线高度 */
-    transition: width 0.3s ease; /* 宽度变化动画 */
-    background: var(--gradient, linear-gradient(to right, #007bff, #6f42c1)); /* 默认渐变 */
-}
-
-/* 鼠标悬停时显示下划线 */
-.navigation .nav-item:hover::after {
-    width: 100%; /* 下划线扩展到全宽 */
-}
-
-/* 鼠标悬停时文字颜色变化 */
+/* 鼠标悬停时显示椭圆形渐变边框 */
 .navigation .nav-item:hover {
-    color: #ffffff; /* 保持白色，避免颜色冲突 */
+    border-width: 2px; /* 显示边框 */
+    border-image: var(--gradient, linear-gradient(to right, #00b7eb, #ff69b4)) 1; /* 默认渐变 */
+    border-image-slice: 1; /* 确保渐变填充整个边框 */
+    color: #ffffff; /* 保持文字白色 */
 }
 
 /* 定义渐变色列表 */
-.navigation .nav-item.gradient-1::after { /* 主页 */
-    --gradient: linear-gradient(to right, #007bff, #6f42c1); /* 蓝紫渐变 */
+.navigation .nav-item.gradient-1 { /* 主页 */
+    --gradient: linear-gradient(to right, #00b7eb, #ff69b4); /* 亮蓝到粉红 */
 }
 
-.navigation .nav-item.gradient-2::after { /* 博客 */
-    --gradient: linear-gradient(to right, #28a745, #17a2b8); /* 绿蓝渐变 */
+.navigation .nav-item.gradient-2 { /* 博客 */
+    --gradient: linear-gradient(to right, #20c997, #ffc107); /* 青绿到亮黄 */
 }
 
-.navigation .nav-item.gradient-3::after { /* 图床 */
-    --gradient: linear-gradient(to right, #fd7e14, #dc3545); /* 橙红渐变 */
+.navigation .nav-item.gradient-3 { /* 图床 */
+    --gradient: linear-gradient(to right, #ff851b, #dc143c); /* 橙色到深红 */
 }
 
-.navigation .nav-item.gradient-4::after { /* 关于 */
-    --gradient: linear-gradient(to right, #6f42c1, #e83e8c); /* 紫红渐变 */
+.navigation .nav-item.gradient-4 { /* 关于 */
+    --gradient: linear-gradient(to right, #9932cc, #ff00ff); /* 紫色到亮紫 */
 }
 
-.navigation .nav-item.gradient-5::after { /* 未来按钮1（例如项目） */
-    --gradient: linear-gradient(to right, #00b7eb, #ff69b4); /* 青粉渐变 */
+.navigation .nav-item.gradient-5 { /* 未来按钮1（例如项目） */
+    --gradient: linear-gradient(to right, #32cd32, #1e90ff); /* 绿到蓝 */
 }
 
-.navigation .nav-item.gradient-6::after { /* 未来按钮2（例如联系） */
-    --gradient: linear-gradient(to right, #ffc107, #6f42c1); /* 黄紫渐变 */
+.navigation .nav-item.gradient-6 { /* 未来按钮2（例如联系） */
+    --gradient: linear-gradient(to right, #ff4500, #ffa500); /* 红到橙 */
 }
 
 .hitokoto {
@@ -203,6 +191,7 @@ body::before {
     .nav-item {
         width: 80%;
         text-align: center;
+        border-radius: 15px; /* 移动端稍小圆角 */
     }
 }
 
