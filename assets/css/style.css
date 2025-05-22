@@ -29,7 +29,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: #2d3436; /* 默认背景色 */
+    background-color: #2d3436;
     font-family: '975MaruSC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     transition: background-image 1s ease-in-out;
     position: relative;
@@ -105,17 +105,17 @@ body::before {
     text-decoration: none;
     padding: 0.5rem 1.5rem;
     font-size: clamp(0.9rem, 2vw, 1rem);
-    border: 2px solid transparent; /* 初始透明边框 */
-    border-radius: 20px; /* 椭圆形边框：上下直线，左右圆弧 */
-    transition: border-width 0.3s ease; /* 边框动画 */
+    transition: all 0.3s ease;
 }
 
-/* 鼠标悬停时显示动态渐变边框 */
+/* 鼠标悬停：动态渐变色文字 */
 .navigation .nav-item:hover {
-    border-width: 2px;
-    border-image: var(--gradient, linear-gradient(to right, #00ff7f, #00b7eb)) 1;
-    border-image-slice: 1;
-    color: #ffffff; /* 保持文字白色 */
+    background-image: var(--gradient, linear-gradient(to right, #00ff7f, #00b7eb));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientFlow 3s ease infinite;
 }
 
 /* 动态渐变动画 */
@@ -125,53 +125,29 @@ body::before {
     100% { background-position: 0% 50%; }
 }
 
-/* 定义渐变色列表 */
+/* 渐变色定义 */
 .navigation .nav-item.gradient-1 { /* 主页 */
     --gradient: linear-gradient(to right, #00ff7f, #00b7eb, #00ff7f); /* 亮绿到亮蓝 */
-}
-.navigation .nav-item.gradient-1:hover {
-    animation: gradientFlow 3s ease infinite;
-    background-size: 200% 200%;
 }
 
 .navigation .nav-item.gradient-2 { /* 博客 */
     --gradient: linear-gradient(to right, #ff4040, #ffa500, #ff4040); /* 亮红到橙 */
 }
-.navigation .nav-item.gradient-2:hover {
-    animation: gradientFlow 3s ease infinite;
-    background-size: 200% 200%;
-}
 
 .navigation .nav-item.gradient-3 { /* 图床 */
     --gradient: linear-gradient(to right, #9932cc, #ff69b4, #9932cc); /* 紫到粉 */
-}
-.navigation .nav-item.gradient-3:hover {
-    animation: gradientFlow 3s ease infinite;
-    background-size: 200% 200%;
 }
 
 .navigation .nav-item.gradient-4 { /* 关于 */
     --gradient: linear-gradient(to right, #20c997, #ffd700, #20c997); /* 青到黄 */
 }
-.navigation .nav-item.gradient-4:hover {
-    animation: gradientFlow 3s ease infinite;
-    background-size: 200% 200%;
-}
 
-.navigation .nav-item.gradient-5 { /* 未来按钮1（例如项目） */
+.navigation .nav-item.gradient-5 { /* 未来按钮 1（例如项目） */
     --gradient: linear-gradient(to right, #1e90ff, #ff4500, #1e90ff); /* 蓝到红 */
 }
-.navigation .nav-item.gradient-5:hover {
-    animation: gradientFlow 3s ease infinite;
-    background-size: 200% 200%;
-}
 
-.navigation .nav-item.gradient-6 { /* 未来按钮2（例如联系） */
+.navigation .nav-item.gradient-6 { /* 未来按钮 2（例如联系） */
     --gradient: linear-gradient(to right, #ff69b4, #32cd32, #ff69b4); /* 粉到绿 */
-}
-.navigation .nav-item.gradient-6:hover {
-    animation: gradientFlow 3s ease infinite;
-    background-size: 200% 200%;
 }
 
 .hitokoto {
@@ -216,7 +192,6 @@ body::before {
     .nav-item {
         width: 80%;
         text-align: center;
-        border-radius: 15px; /* 移动端稍小圆角 */
     }
 }
 
@@ -328,21 +303,15 @@ body::before {
     align-items: center;
     gap: 5px;
     font-size: 1rem;
+    transition: all 0.3s ease;
     background-color: rgba(255, 255, 255, 0.1);
-    padding: 10px 20px;
+    padding: 8px 15px;
     border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    z-index: 101;
 }
 
 .back-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05) translateX(-3px);
-}
-
-.back-btn:active {
-    transform: scale(0.95);
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-3px);
 }
 
 /* 确保about-container有相对定位 */
