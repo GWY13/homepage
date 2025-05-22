@@ -285,18 +285,24 @@ body::before {
     align-items: center;
     gap: 5px;
     font-size: 1rem;
-    transition: all 0.3s ease;
     background-color: rgba(255, 255, 255, 0.1);
-    padding: 8px 15px;
+    padding: 10px 20px; /* 增加padding，扩大点击区域 */
     border-radius: 20px;
+    cursor: pointer; /* 明确可点击状态 */
+    transition: background-color 0.2s ease, transform 0.2s ease; /* 缩短过渡时间，仅保留必要属性 */
+    z-index: 101; /* 确保按钮在最上层 */
 }
 
 .back-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(-3px);
+    background-color: rgba(255, 255, 255, 0.3); /* 增强hover效果 */
+    transform: scale(1.05) translateX(-3px); /* 添加轻微缩放，增强反馈 */
 }
 
-/* 确保about-container有相对定位 */
+.back-btn:active {
+    transform: scale(0.95); /* 点击时轻微缩小，模拟按下效果 */
+}
+
+/* 确保about-container有相对定位，以便返回按钮可以正确定位 */
 .about-container {
     position: relative;
     max-width: 800px;
