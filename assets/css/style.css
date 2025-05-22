@@ -29,7 +29,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: #2d3436; /* 添加默认背景色 */
+    background-color: #2d3436; /* 默认背景色 */
     font-family: '975MaruSC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     transition: background-image 1s ease-in-out;
     position: relative;
@@ -55,8 +55,6 @@ body::before {
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.3);
-    /* 去除虚化效果，删除或注释掉下面这一行 */
-    /* backdrop-filter: blur(5px); */
 }
 
 .content {
@@ -75,8 +73,8 @@ body::before {
     height: 120px;
     margin-bottom: 1rem;
     animation: fadeIn 1s ease-in;
-    border-radius: 50%; /* 新增：让头像变为圆形 */
-    object-fit: cover;  /* 可选：保证图片内容不变形 */
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .title {
@@ -106,47 +104,74 @@ body::before {
     color: white;
     text-decoration: none;
     padding: 0.5rem 1.5rem;
-    /* 移除以下两行即可去掉椭圆边框和线条 */
-    /* border: 1px solid rgba(255, 255, 255, 0.3); */
-    /* border-radius: 20px; */
     font-size: clamp(0.9rem, 2vw, 1rem);
-    position: relative; /* 为定位提供上下文 */
     border: 2px solid transparent; /* 初始透明边框 */
-    border-radius: 20px; /* 椭圆形边框，上下直线，左右圆弧 */
-    transition: border-width 0.3s ease, border-color 0.3s ease; /* 边框动画 */
+    border-radius: 20px; /* 椭圆形边框：上下直线，左右圆弧 */
+    transition: border-width 0.3s ease; /* 边框动画 */
 }
 
-/* 鼠标悬停时显示椭圆形渐变边框 */
+/* 鼠标悬停时显示动态渐变边框 */
 .navigation .nav-item:hover {
-    border-width: 2px; /* 显示边框 */
-    border-image: var(--gradient, linear-gradient(to right, #00b7eb, #ff69b4)) 1; /* 默认渐变 */
-    border-image-slice: 1; /* 确保渐变填充整个边框 */
+    border-width: 2px;
+    border-image: var(--gradient, linear-gradient(to right, #00ff7f, #00b7eb)) 1;
+    border-image-slice: 1;
     color: #ffffff; /* 保持文字白色 */
+}
+
+/* 动态渐变动画 */
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* 定义渐变色列表 */
 .navigation .nav-item.gradient-1 { /* 主页 */
-    --gradient: linear-gradient(to right, #00b7eb, #ff69b4); /* 亮蓝到粉红 */
+    --gradient: linear-gradient(to right, #00ff7f, #00b7eb, #00ff7f); /* 亮绿到亮蓝 */
+}
+.navigation .nav-item.gradient-1:hover {
+    animation: gradientFlow 3s ease infinite;
+    background-size: 200% 200%;
 }
 
 .navigation .nav-item.gradient-2 { /* 博客 */
-    --gradient: linear-gradient(to right, #20c997, #ffc107); /* 青绿到亮黄 */
+    --gradient: linear-gradient(to right, #ff4040, #ffa500, #ff4040); /* 亮红到橙 */
+}
+.navigation .nav-item.gradient-2:hover {
+    animation: gradientFlow 3s ease infinite;
+    background-size: 200% 200%;
 }
 
 .navigation .nav-item.gradient-3 { /* 图床 */
-    --gradient: linear-gradient(to right, #ff851b, #dc143c); /* 橙色到深红 */
+    --gradient: linear-gradient(to right, #9932cc, #ff69b4, #9932cc); /* 紫到粉 */
+}
+.navigation .nav-item.gradient-3:hover {
+    animation: gradientFlow 3s ease infinite;
+    background-size: 200% 200%;
 }
 
 .navigation .nav-item.gradient-4 { /* 关于 */
-    --gradient: linear-gradient(to right, #9932cc, #ff00ff); /* 紫色到亮紫 */
+    --gradient: linear-gradient(to right, #20c997, #ffd700, #20c997); /* 青到黄 */
+}
+.navigation .nav-item.gradient-4:hover {
+    animation: gradientFlow 3s ease infinite;
+    background-size: 200% 200%;
 }
 
 .navigation .nav-item.gradient-5 { /* 未来按钮1（例如项目） */
-    --gradient: linear-gradient(to right, #32cd32, #1e90ff); /* 绿到蓝 */
+    --gradient: linear-gradient(to right, #1e90ff, #ff4500, #1e90ff); /* 蓝到红 */
+}
+.navigation .nav-item.gradient-5:hover {
+    animation: gradientFlow 3s ease infinite;
+    background-size: 200% 200%;
 }
 
 .navigation .nav-item.gradient-6 { /* 未来按钮2（例如联系） */
-    --gradient: linear-gradient(to right, #ff4500, #ffa500); /* 红到橙 */
+    --gradient: linear-gradient(to right, #ff69b4, #32cd32, #ff69b4); /* 粉到绿 */
+}
+.navigation .nav-item.gradient-6:hover {
+    animation: gradientFlow 3s ease infinite;
+    background-size: 200% 200%;
 }
 
 .hitokoto {
@@ -304,23 +329,23 @@ body::before {
     gap: 5px;
     font-size: 1rem;
     background-color: rgba(255, 255, 255, 0.1);
-    padding: 10px 20px; /* 增加padding，扩大点击区域 */
+    padding: 10px 20px;
     border-radius: 20px;
-    cursor: pointer; /* 明确可点击状态 */
-    transition: background-color 0.2s ease, transform 0.2s ease; /* 缩短过渡时间，仅保留必要属性 */
-    z-index: 101; /* 确保按钮在最上层 */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    z-index: 101;
 }
 
 .back-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3); /* 增强hover效果 */
-    transform: scale(1.05) translateX(-3px); /* 添加轻微缩放，增强反馈 */
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05) translateX(-3px);
 }
 
 .back-btn:active {
-    transform: scale(0.95); /* 点击时轻微缩小，模拟按下效果 */
+    transform: scale(0.95);
 }
 
-/* 确保about-container有相对定位，以便返回按钮可以正确定位 */
+/* 确保about-container有相对定位 */
 .about-container {
     position: relative;
     max-width: 800px;
@@ -513,8 +538,6 @@ body::before {
     padding: 1rem;
     text-align: center;
     color: white;
-    /* 移除这行背景色设置 */
-    /* background-color: rgba(0, 0, 0, 0.5); */
     z-index: 10;
 }
 
