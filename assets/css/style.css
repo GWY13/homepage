@@ -111,6 +111,29 @@ body::before {
     /* border-radius: 20px; */
     transition: all 0.3s ease;
     font-size: clamp(0.9rem, 2vw, 1rem);
+    position: relative; /* 为伪元素定位 */
+}
+
+/* 新增：下划线伪元素 */
+.navigation .nav-item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* 初始宽度为 0 */
+    height: 2px; /* 下划线高度 */
+    background-color: #007bff; /* 下划线颜色，与主题协调 */
+    transition: width 0.3s ease; /* 宽度变化动画 */
+}
+
+/* 新增：鼠标悬停时显示下划线 */
+.navigation .nav-item:hover::after {
+    width: 100%; /* 下划线扩展到全宽 */
+}
+
+/* 新增：鼠标悬停时文字颜色变化 */
+.navigation .nav-item:hover {
+    color: #007bff; /* 与下划线颜色一致 */
 }
 
 .hitokoto {
