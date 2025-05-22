@@ -109,12 +109,12 @@ body::before {
     /* 移除以下两行即可去掉椭圆边框和线条 */
     /* border: 1px solid rgba(255, 255, 255, 0.3); */
     /* border-radius: 20px; */
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
     font-size: clamp(0.9rem, 2vw, 1rem);
     position: relative; /* 为伪元素定位 */
 }
 
-/* 新增：下划线伪元素 */
+/* 下划线伪元素 */
 .navigation .nav-item::after {
     content: '';
     position: absolute;
@@ -122,18 +122,43 @@ body::before {
     bottom: 0;
     width: 0; /* 初始宽度为 0 */
     height: 2px; /* 下划线高度 */
-    background-color: #007bff; /* 下划线颜色，与主题协调 */
     transition: width 0.3s ease; /* 宽度变化动画 */
+    background: var(--gradient, linear-gradient(to right, #007bff, #6f42c1)); /* 默认渐变 */
 }
 
-/* 新增：鼠标悬停时显示下划线 */
+/* 鼠标悬停时显示下划线 */
 .navigation .nav-item:hover::after {
     width: 100%; /* 下划线扩展到全宽 */
 }
 
-/* 新增：鼠标悬停时文字颜色变化 */
+/* 鼠标悬停时文字颜色变化 */
 .navigation .nav-item:hover {
-    color: #007bff; /* 与下划线颜色一致 */
+    color: #ffffff; /* 保持白色，避免颜色冲突 */
+}
+
+/* 定义渐变色列表 */
+.navigation .nav-item.gradient-1::after { /* 主页 */
+    --gradient: linear-gradient(to right, #007bff, #6f42c1); /* 蓝紫渐变 */
+}
+
+.navigation .nav-item.gradient-2::after { /* 博客 */
+    --gradient: linear-gradient(to right, #28a745, #17a2b8); /* 绿蓝渐变 */
+}
+
+.navigation .nav-item.gradient-3::after { /* 图床 */
+    --gradient: linear-gradient(to right, #fd7e14, #dc3545); /* 橙红渐变 */
+}
+
+.navigation .nav-item.gradient-4::after { /* 关于 */
+    --gradient: linear-gradient(to right, #6f42c1, #e83e8c); /* 紫红渐变 */
+}
+
+.navigation .nav-item.gradient-5::after { /* 未来按钮1（例如项目） */
+    --gradient: linear-gradient(to right, #00b7eb, #ff69b4); /* 青粉渐变 */
+}
+
+.navigation .nav-item.gradient-6::after { /* 未来按钮2（例如联系） */
+    --gradient: linear-gradient(to right, #ffc107, #6f42c1); /* 黄紫渐变 */
 }
 
 .hitokoto {
@@ -289,15 +314,21 @@ body::before {
     align-items: center;
     gap: 5px;
     font-size: 1rem;
-    transition: all 0.3s ease;
     background-color: rgba(255, 255, 255, 0.1);
-    padding: 8px 15px;
+    padding: 10px 20px; /* 增加padding，扩大点击区域 */
     border-radius: 20px;
+    cursor: pointer; /* 明确可点击状态 */
+    transition: background-color 0.2s ease, transform 0.2s ease; /* 缩短过渡时间，仅保留必要属性 */
+    z-index: 101; /* 确保按钮在最上层 */
 }
 
 .back-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(-3px);
+    background-color: rgba(255, 255, 255, 0.3); /* 增强hover效果 */
+    transform: scale(1.05) translateX(-3px); /* 添加轻微缩放，增强反馈 */
+}
+
+.back-btn:active {
+    transform: scale(0.95); /* 点击时轻微缩小，模拟按下效果 */
 }
 
 /* 确保about-container有相对定位，以便返回按钮可以正确定位 */
