@@ -1,6 +1,3 @@
-// 设置Cloudflare Worker API的基础URL
-const API_BASE_URL = 'https://hou.521778.xyz'; //必填项
-
 // 获取必应每日壁纸
 function getBingWallpaper() {
     // 使用更可靠的必应壁纸API
@@ -62,57 +59,14 @@ function setBackground() {
 
 // 获取一言
 async function getHitokoto() {
-
     try {
-      const directResponse = await fetch('https://v1.hitokoto.cn');
-      const directData = await directResponse.json();
-      $('.hitokoto-text').text(directData.hitokoto);
-      $('.hitokoto-from').text(`- [${directData.from}]`);
+        const directResponse = await fetch('https://v1.hitokoto.cn');
+        const directData = await directResponse.json();
+        $('.hitokoto-text').text(directData.hitokoto);
+        $('.hitokoto-from').text(`- [${directData.from}]`);
     } catch (directError) {
-      console.error('直接获取一言也失败:', directError);
+        console.error('直接获取一言失败:', directError);
     }
-  }
-
-
-// 格式化日期
-function formatDate(timestamp) {
-  const date = new Date(timestamp);
-  return date.getFullYear() + '-' + 
-         String(date.getMonth() + 1).padStart(2, '0') + '-' + 
-         String(date.getDate()).padStart(2, '0');
-}
-
-// 创建留言HTML
-function createMessageHTML(message) {
-  return `
-    <div class="message-item">
-      <div class="message-header">
-        <span class="message-author">${message.name}</span>
-        <span class="message-date">${formatDate(message.timestamp)}</span>
-      </div>
-      <div class="message-content">
-        <p>${message.content}</p>
-      </div>
-    </div>
-  `;
-}
-
-// 获取留言列表
-async function getMessages() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/messages`);
-    if (!response.ok) throw new Error('获取留言失败');
-    
-    const messages = await response.json();
-    $('.message-list').empty();
-    
-    messages.forEach(message => {
-      $('.message-list').append(createMessageHTML(message));
-    });
-  } catch (error) {
-    console.error('获取留言失败:', error);
-    alert('获取留言失败，请稍后再试');
-  }
 }
 
 // 页面加载完成后执行
@@ -120,65 +74,11 @@ $(document).ready(function() {
     // 初始化加载背景和一言
     getBingWallpaper(); // 使用必应壁纸
     getHitokoto();
-    getMessages(); // 添加这一行来加载留言
-    
-    // 处理留言板表单提交
-    $('#guestbook-form').on('submit', async function(e) {
-      e.preventDefault();
-      
-      const name = $(this).find('input[name="name"]').val() || '访客';
-      const email = $(this).find('input[name="email"]').val();
-      const content = $(this).find('textarea[name="message"]').val();
-      
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/messages`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ name, email, content })
-        });
-        
-        if (!response.ok) throw new Error('提交留言失败');
-        
-        const result = await response.json();
-        $('.message-list').prepend(createMessageHTML(result));
-        
-        alert('留言提交成功！');
-        this.reset();
-      } catch (error) {
-        console.error('提交留言失败:', error);
-        alert('提交留言失败，请稍后再试');
-      }
-    });
-    
-    // 处理联系表单提交
-    $('#contact-form').on('submit', async function(e) {
-      e.preventDefault();
-      
-      const name = $(this).find('input[name="name"]').val();
-      const email = $(this).find('input[name="email"]').val();
-      const message = $(this).find('textarea[name="message"]').val();
-      
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/contact`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ name, email, message })
-        });
-        
-        if (!response.ok) throw new Error('提交联系表单失败');
-        
-        alert('感谢您的留言，我会尽快回复！');
-        this.reset();
-      } catch (error) {
-        console.error('提交联系表单失败:', error);
-        alert('提交联系表单失败，请稍后再试');
-      }
-    });
     
     // 处理返回按钮点击
     $('.back-btn').on('click', function(e) {
-      e.preventDefault();
-      $('html, body').animate({scrollTop: 0}, 800);
-      window.location.href = window.location.pathname;
+        e.preventDefault();
+        $('html, body').animate({scrollTop: 0}, 800);
+        window.location.href = window.location.pathname;
     });
 });
